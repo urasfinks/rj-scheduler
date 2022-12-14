@@ -2,9 +2,9 @@ package ru.jamsys.scheduler;
 
 import java.util.function.Consumer;
 
-public class TickScheduler extends AbstractScheduler {
+public class SchedulerTickImpl extends AbstractScheduler {
 
-    public TickScheduler(String name, long periodMillis) {
+    public SchedulerTickImpl(String name, long periodMillis) {
         super(name, periodMillis);
     }
 
