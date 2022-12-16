@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 public class SchedulerTickImpl extends AbstractScheduler {
 
-    public SchedulerTickImpl(String name, int periodMillis) {
+    public SchedulerTickImpl(String name, long periodMillis) {
         super(name, periodMillis);
     }
 

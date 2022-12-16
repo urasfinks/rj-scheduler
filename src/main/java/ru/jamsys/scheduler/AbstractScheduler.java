@@ -21,9 +21,9 @@ public abstract class AbstractScheduler implements Scheduler {
     @Getter
     private final String name;
     @Getter
-    private final int periodMillis;
+    private final long periodMillis;
 
-    public AbstractScheduler(String name, int periodMillis) {
+    public AbstractScheduler(String name, long periodMillis) {
         this.name = name;
         this.periodMillis = periodMillis;
         executor = Executors.newScheduledThreadPool(1, new CustomThreadFactory(getName()));
