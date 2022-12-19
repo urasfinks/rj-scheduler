@@ -30,17 +30,33 @@ public abstract class AbstractScheduler implements Scheduler {
     }
 
     public void run() {
-        run(null);
+        try {
+            run(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public <T> void run(T t) {
-        if (isRun.compareAndSet(false, true)) {
-            executor.scheduleAtFixedRate(() -> getConsumer().accept(t), 1, getPeriodMillis(), TimeUnit.MILLISECONDS);
+        try {
+            if (isRun.compareAndSet(false, true)) {
+                executor.scheduleAtFixedRate(() -> {
+                    try {
+                        getConsumer().accept(t);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, 1, getPeriodMillis(), TimeUnit.MILLISECONDS);
+            } else {
+                new Exception("Scheduler " + name + " already running").printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void shutdown() {
-        if (isRun.get()) {
+        if (isRun.get()) { //Выключать будем только то, что включено)
             executor.shutdownNow();
             isRun.set(false);
         }
