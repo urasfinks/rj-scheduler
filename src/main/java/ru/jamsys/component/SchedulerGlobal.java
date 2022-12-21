@@ -22,6 +22,10 @@ public class SchedulerGlobal extends AbstractScheduler {
         list.add(procedure);
     }
 
+    public void remove(Procedure procedure){
+        list.remove(procedure);
+    }
+
     @Override
     public <T> Consumer<T> getConsumer() {
         return (t) -> {
