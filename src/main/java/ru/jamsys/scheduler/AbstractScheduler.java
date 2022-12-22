@@ -63,4 +63,9 @@ public abstract class AbstractScheduler implements Scheduler {
         }
     }
 
+    @Override
+    public boolean isActive() {
+        return isRun.get();
+    }
+
 }

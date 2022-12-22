@@ -10,4 +10,6 @@ public interface Scheduler {
 
     void shutdown();
 
+    boolean isActive();
+
 }
