@@ -25,7 +25,7 @@ public class SchedulerCustom extends AbstractScheduler {
 
     public void remove(Procedure procedure) {
         list.remove(procedure);
-        if (lastProcedure.equals(procedure)) {
+        if (lastProcedure != null && lastProcedure.equals(procedure)) {
             lastProcedure = null;
         }
         if (list.isEmpty() && lastProcedure == null) {
