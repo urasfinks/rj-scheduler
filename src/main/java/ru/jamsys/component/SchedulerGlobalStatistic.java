@@ -9,30 +9,28 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @Component
-public class SchedulerGlobal extends AbstractScheduler {
+public class SchedulerGlobalStatistic extends AbstractScheduler {
 
     final List<Procedure> list = new ArrayList<>();
 
-    public SchedulerGlobal() {
-        super("SchedulerGlobal", 1000);
+    public SchedulerGlobalStatistic() {
+        super("SchedulerGlobalStatistic", 1000);
         run();
     }
 
+    @SuppressWarnings("unused")
     public void add(Procedure procedure) {
         list.add(procedure);
     }
 
+    @SuppressWarnings("unused")
     public void remove(Procedure procedure){
         list.remove(procedure);
     }
 
     @Override
     public <T> Consumer<T> getConsumer() {
-        return (t) -> {
-            list.stream().forEach(procedure -> {
-                procedure.run();
-            });
-        };
+        return (t) -> list.forEach(Procedure::run);
     }
 
 }

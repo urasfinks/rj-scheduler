@@ -55,6 +55,7 @@ public abstract class AbstractScheduler implements Scheduler {
         }
     }
 
+    @Override
     public void shutdown() {
         if (isRun.get()) { //Выключать будем только то, что включено)
             executor.shutdownNow();
