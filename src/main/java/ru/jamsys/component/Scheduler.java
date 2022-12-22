@@ -26,15 +26,17 @@ public class Scheduler extends AbstractCoreComponent {
     }
 
     @SuppressWarnings("unused")
-    public void add(SchedulerGlobal schedulerGlobal, Procedure procedure) {
-        add(schedulerGlobal.getNameScheduler(), procedure, schedulerGlobal.getPeriodMillis());
+    public SchedulerCustom add(SchedulerGlobal schedulerGlobal, Procedure procedure) {
+        return add(schedulerGlobal.getNameScheduler(), procedure, schedulerGlobal.getPeriodMillis());
     }
 
-    public void add(String name, Procedure procedure, long periodMillis) {
-        if (!mapScheduler.containsKey(name)) {
-            mapScheduler.put(name, new SchedulerCustom(name, periodMillis));
+    public SchedulerCustom add(String name, Procedure procedure, long periodMillis) {
+        mapScheduler.putIfAbsent(name, new SchedulerCustom(name, periodMillis));
+        SchedulerCustom schedulerCustom = mapScheduler.get(name);
+        if (procedure != null) {
+            schedulerCustom.add(procedure);
         }
-        mapScheduler.get(name).add(procedure);
+        return schedulerCustom;
     }
 
     @SuppressWarnings("unused")
