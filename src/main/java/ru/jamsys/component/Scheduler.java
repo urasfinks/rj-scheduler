@@ -1,9 +1,9 @@
 package ru.jamsys.component;
 
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import ru.jamsys.AbstractCoreComponent;
-import ru.jamsys.App;
 import ru.jamsys.Procedure;
 import ru.jamsys.scheduler.SchedulerCustom;
 import ru.jamsys.scheduler.SchedulerGlobal;
@@ -18,8 +18,10 @@ public class Scheduler extends AbstractCoreComponent {
 
     private final Map<String, SchedulerCustom> mapScheduler = new ConcurrentHashMap<>();
     private StatisticAggregator statisticAggregator;
+    private final ConfigurableApplicationContext applicationContext;
 
-    public Scheduler() {
+    public Scheduler(ConfigurableApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
         add(SchedulerGlobal.SCHEDULER_GLOBAL_STATISTIC_WRITE, this::flushStatistic);
     }
 
@@ -65,7 +67,7 @@ public class Scheduler extends AbstractCoreComponent {
     public void flushStatistic() {
         SchedulerStatistic schedulerStatistic = new SchedulerStatistic(mapScheduler.size());
         if (statisticAggregator == null) {
-            statisticAggregator = App.context.getBean(StatisticAggregator.class);
+            statisticAggregator = applicationContext.getBean(StatisticAggregator.class);
         }
         statisticAggregator.add(schedulerStatistic);
     }
