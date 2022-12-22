@@ -67,8 +67,6 @@ public class Scheduler extends AbstractCoreComponent {
         if (statisticAggregator == null) {
             statisticAggregator = App.context.getBean(StatisticAggregator.class);
         }
-        if (statisticAggregator != null) {
-            statisticAggregator.add(schedulerStatistic);
-        }
+        statisticAggregator.add(schedulerStatistic);
     }
 }
