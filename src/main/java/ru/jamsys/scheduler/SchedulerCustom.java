@@ -25,7 +25,10 @@ public class SchedulerCustom extends AbstractScheduler {
 
     public void remove(Procedure procedure) {
         list.remove(procedure);
-        if (list.isEmpty()) {
+        if (lastProcedure.equals(procedure)) {
+            lastProcedure = null;
+        }
+        if (list.isEmpty() && lastProcedure == null) {
             shutdown();
         }
     }
@@ -33,7 +36,6 @@ public class SchedulerCustom extends AbstractScheduler {
     @Override
     public <T> Consumer<T> getConsumer() {
         return (t) -> {
-            //System.out.println(Thread.currentThread().getName());
             list.forEach(Procedure::run);
             if (lastProcedure != null) {
                 lastProcedure.run();
