@@ -67,7 +67,7 @@ public class Scheduler extends AbstractCoreComponent {
 
     @Override
     public void flushStatistic() {
-        SchedulerStatistic schedulerStatistic = new SchedulerStatistic(mapScheduler.size());
+        SchedulerStatistic schedulerStatistic = new SchedulerStatistic(mapScheduler.keySet());
         if (statisticAggregator == null) {
             statisticAggregator = applicationContext.getBean(StatisticAggregator.class);
         }

@@ -1,11 +1,17 @@
 package ru.jamsys.scheduler;
 
+import lombok.Data;
+
+import java.util.Set;
+
+@Data
 public class SchedulerStatistic {
 
-    int countScheduler;
+    String name = getClass().getSimpleName();
 
-    public SchedulerStatistic(int countScheduler) {
-        this.countScheduler = countScheduler;
+    Set<String> set;
+
+    public SchedulerStatistic(Set<String> set) {
+        this.set = set;
     }
-    
 }
