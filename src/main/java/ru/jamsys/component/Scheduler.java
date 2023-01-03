@@ -31,7 +31,9 @@ public class Scheduler extends AbstractCoreComponent {
     }
 
     public SchedulerCustom add(String name, Procedure procedure, long periodMillis) {
-        mapScheduler.putIfAbsent(name, new SchedulerCustom(name, periodMillis));
+        if(!mapScheduler.containsKey(name)){
+            mapScheduler.put(name, new SchedulerCustom(name, periodMillis));
+        }
         SchedulerCustom schedulerCustom = mapScheduler.get(name);
         if (procedure != null) {
             schedulerCustom.add(procedure);
